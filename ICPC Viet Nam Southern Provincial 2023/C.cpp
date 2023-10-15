@@ -100,7 +100,7 @@ void solve() {
             }
         }
     }
-    cout << n1-n2+n3/3 << el; // inclusive - exlusive rule
+    cout << n1-n2+n3/3 << el; // inclusive - exclusive rule
 
 }
 
