@@ -44,6 +44,8 @@ ll pow_mod(ll x, ll y, ll mod) { //mod<3.10^9
     return ans%mod;
 }
 
+const int BS=10000;
+
 class point {
 public:
     ll x, y, z;
@@ -81,52 +83,25 @@ void solve() {
     for(int i=0; i<k; i++) n1+=n;
     for(int i=0; i<k; i++) {
         for(int j=i+1; j<k; j++) {
-            if(sp[i].x==sp[j].x && sp[i].x>0) {
-                if( (sp[i].y==0 && sp[j].z==0) ||  (sp[j].y==0 && sp[i].z==0) ) {
-                    n2++;
-                    if(sp[i].y==0) {
-                        point check_point(0, sp[j].y , sp[i].z  );
-                        if( mp.find(check_point)!=mp.end() ) n3++;
-                    }
-                    else {
-                        point check_point(0, sp[i].y , sp[j].z  );
-                        if( mp.find(check_point)!=mp.end() ) n3++;
-                    }
-
-                }
+            if( sp[i].x==sp[j].x && sp[i].x>0 && ( (sp[i].y==0 && sp[j].z==0) ||  (sp[j].y==0 && sp[i].z==0) )  ) {
+                n2++;
+                point check_point(0, sp[j].y + sp[i].y , sp[j].z + sp[i].z  );
+                if( mp.find(check_point)!=mp.end() ) n3++;
             }
-            if(sp[i].y==sp[j].y && sp[i].y>0) {
-                if( (sp[i].x==0 && sp[j].z==0) ||  (sp[j].x==0 && sp[i].z==0) ) {
-                    n2++;
-                    point check_point(sp[i].x+ sp[i].z, 0, sp[j].x+ sp[j].z  );
-                    if(sp[i].x==0) {
-                        point check_point( sp[j].x , 0 , sp[i].z  );
-                        if( mp.find(check_point)!=mp.end() ) n3++;
-                    }
-                    else {
-                        point check_point( sp[i].x , 0 , sp[j].z  );
-                        if( mp.find(check_point)!=mp.end() ) n3++;
-                    }
-                }
+            if( sp[i].y==sp[j].y && sp[i].y>0 && ( (sp[i].x==0 && sp[j].z==0) ||  (sp[j].x==0 && sp[i].z==0) ) ) {
+                n2++;
+                point check_point( sp[j].x + sp[i].x , 0 , sp[j].z + sp[i].z );
+                if( mp.find(check_point)!=mp.end() ) n3++;
             }
-            if(sp[i].z==sp[j].z && sp[i].z>0) {
-                if( (sp[i].y==0 && sp[j].x==0) ||  (sp[j].y==0 && sp[i].x==0) ) {
-                    n2++;
-                    point check_point(sp[i].y+ sp[i].x , sp[j].y+ sp[j].x , 0  );
-                    if(sp[i].x==0) {
-                        point check_point( sp[j].x , sp[i].y, 0  );
-                        if( mp.find(check_point)!=mp.end() ) n3++;
-                    }
-                    else {
-                        point check_point( sp[i].x , sp[j].y, 0  );
-                        if( mp.find(check_point)!=mp.end() ) n3++;
-                    }
-                }
+            if( sp[i].z==sp[j].z && sp[i].z>0 && ( (sp[i].y==0 && sp[j].x==0) ||  (sp[j].y==0 && sp[i].x==0) ) ) {
+                n2++;
+                point check_point( sp[j].x + sp[i].x , sp[j].y + sp[i].y, 0  );
+                if( mp.find(check_point)!=mp.end() ) n3++;
             }
         }
     }
+    cout << n1-n2+n3/3 << el; // inclusive - exlusive rule
 
-    cout << n1-n2+n3/3 << el;
 }
 
 
