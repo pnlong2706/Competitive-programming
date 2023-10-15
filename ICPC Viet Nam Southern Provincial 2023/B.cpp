@@ -49,7 +49,7 @@ void solve() {
     cin >> n >> k;
     string s="";
     for(int i=9; i>=2; i--  ) {
-        if(n%i==0) {
+        while(n%i==0) {
             s+=to_string(i);
             n/=i;
         }
