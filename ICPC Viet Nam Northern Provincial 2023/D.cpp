@@ -46,7 +46,7 @@ ll pow_mod(ll x, ll y, ll mod) { //mod<3.10^9
 
 /*
     *** Idea for this problem ****
-    Assume that n<m => n<=16, look at this number, we may think about bit mask.
+    Assume that n<=m => n<=16, look at this number, we may think about bit mask.
     We denote a binary number with '1' repesenting the black cell.
     Then we can preprocess to generate all suitable mask with legnth n ( e.g 1010010 is suitable, 1100000 isn't )
     We store all those numbers in inUse, the inUse size is not exceed 2600.
