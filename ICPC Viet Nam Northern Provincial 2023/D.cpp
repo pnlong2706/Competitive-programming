@@ -47,35 +47,35 @@ ll pow_mod(ll x, ll y, ll mod) { //mod<3.10^9
 /*
     *** Idea for this problem ****
     Assume that n<=m => n<=16, look at this number, we may think about bit mask.
-    We denote a binary number with '1' repesenting the black cell.
-    Then we can preprocess to generate all suitable mask with legnth n ( e.g 1010010 is suitable, 1100000 isn't )
-    We store all those numbers in inUse, the inUse size is not exceed 2600.
+    We denote a binary number with '1' representing the black cell.
+    Then we can preprocess to generate all suitable masks with length n ( e.g 1010010 is suitable, 1100000 isn't )
+    We store all those numbers in inUse, the inUse size does not exceed 2600.
 
     Then with each mask in inUse, we can determine which cell in the next column is available
     e.g     col i:      01000100
-            col i+1:    xxx_xxx_   -> 'x' is the cell that cann't be colored black because of the way we color column i-th.
+            col i+1:    xxx_xxx_   -> 'x' is the cell that can't be colored black because of the way we color the column i-th.
 
     Turn this to binary number as well: 'x'->0,'_' -> 1 ( xxx_xxx_ -> 00010001 )
-    Vector canUse take the mask in inUse and return the mask that let us know which cell is available, we call this mask_can_use
+    Vector canUse takes the mask in inUse and returns the mask that lets us know which cell is available, we call this mask_can_use
 
-    With each mask_can_use, we check all elements in inUse, the toUse[ mask_can_use ] is a vector stores all elements M in inUse such as M is subset of mask_in_use
-    ( it means we know all the ways to color cell with each mask_can_use )
+    With each mask_can_use, we check all elements in inUse, the toUse[ mask_can_use ] is a vector that stores all elements M in inUse such as M is a subset of mask_in_use
+    ( it means we know all the ways to color cells with each mask_can_use )
 
-    Now we will use dp with 3 states: dp[mask_can_use][i][k] = number of ways to color with availbe cells as mask_can_use in i-th column and k black cells need coloring left.
+    Now we will use dp with 3 states: dp[mask_can_use][i][k] = a number of ways to color with available cells as mask_can_use in i-th column and k black cells need coloring left.
     To update dp[mask_can_use][i][k], we iretate all elements M inUse[mask_can_use] and for each M, dp[mask_can_use][i][k]+=dp[canUse[M]][i+1][k-numBIT(M)]
 
-    max( mask_can_use * i * k ) ~ 5.10^6 - good enough
+    max( mask_can_use * i * k ) ~ 5.10^6 - good enough to use memoization
 
     Of course mask_can_use may have large value so we actually use dp[id_mask_can_use][i][k]
 
 */
 
-vector<int> inUse;
-vector<int> canUse(70000,-1), recu(70000,-1), cnB(70000,0);
+vector<int> inUse, canUse(70000,-1), recu(70000,-1), cnB(70000,0);
 vector<vector<int>> toUse(70000);
 vector<vector<vector<int>>> dp;
 
-void ini( int i, int n, int num ) {
+// Generate all suitable mask inUse
+void ini( int i, int n, int num ) { 
     if(i==n) {
         for(int j=0; j<n; j++) if( ((num&(1<<j))!=0) && ( (num&(1<<(j+1)))!=0) ) return;
         inUse.pb(num);
@@ -85,6 +85,7 @@ void ini( int i, int n, int num ) {
     ini(i+1,n,num);
 }
 
+// Function to count number of bits
 int cntBit(int num) {
     int res=0;
     while(num>0) {
@@ -94,6 +95,7 @@ int cntBit(int num) {
     return res;
 }
 
+// Memoization
 ll cnt( int cUse, int i, int k, int m ) {
     int id=recu[cUse];
 
