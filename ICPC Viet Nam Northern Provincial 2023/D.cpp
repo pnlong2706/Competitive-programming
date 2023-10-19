@@ -62,7 +62,7 @@ ll pow_mod(ll x, ll y, ll mod) { //mod<3.10^9
     ( it means we know all the ways to color cells with each mask_can_use )
 
     Now we will use dp with 3 states: dp[mask_can_use][i][k] = a number of ways to color with available cells such as mask_can_use in i-th column and k black cells need coloring left.
-    To update dp[mask_can_use][i][k], we iretate all elements M inUse[mask_can_use] and for each M, dp[mask_can_use][i][k]+=dp[canUse[M]][i+1][k-numBIT(M)]
+    To update dp[mask_can_use][i][k], we iretate all elements M in toUse[mask_can_use] and for each M, dp[mask_can_use][i][k]+=dp[canUse[M]][i+1][k-numBIT(M)]
 
     max( mask_can_use * i * k ) ~ 5.10^6 - good enough to use memoization
 
