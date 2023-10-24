@@ -9,3 +9,4 @@ Here is the place where I store some helpful code, solve some critical problems,
   **Contest:** <br/>
    -  ICPC 2023 Viet Nam Northern Provincial Contest - guest team  </br>
    -  ICPC 2023 Viet Nam Southern Provincial Contest - rank 57/233 </br>
+   -  ICPC 2023 Viet Nam Central Provincial Contest - guest team </br>
