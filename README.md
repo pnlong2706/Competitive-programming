@@ -16,4 +16,4 @@ Here is the place where I store some helpful code, solve some critical problems,
 
    ### 2023: Myself
    **Contest:** <br/>
-   -  Vietnamese Olympiad in Informatics for university students - first prize </br>
+   -  Vietnamese Olympiad in Informatics for university students 2023 - first prize </br>
